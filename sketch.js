@@ -52,7 +52,6 @@ function keyReleased()
     this.beam_on = false;
     this.hover = function()
     {
-        console.log("hover");
         this.x += random(-2,2);
         this.y += random(-2,2);
     },
