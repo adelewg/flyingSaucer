@@ -61,19 +61,19 @@ function draw()
     this.y = y;
     this.width = random(150,200);
     this.height = random(35, 125);
-    this.numLights = 20;
+    this.numLights = round(random(10,25));
     this.brightnesses = [];
     this.beam_on = false;
     this.hover = function()
     {
-        this.x += random(-2,2);
-        this.y += random(-2,2);
+        this.x += random(-1,1);
+        this.y += random(-1,1);
         
-        if(this.beam_on == false && random() > 0.95)
+        if(this.beam_on == false && random() > 0.98)
             {
                 this.beam_on = true;
             }
-        else if (this.beam_on == true && random() > 0.5)
+        else if (this.beam_on == true && random() > 0.96)
             {
                 this.beam_on = false;
             }
