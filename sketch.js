@@ -4,13 +4,19 @@
 
 
 
-var flyingSaucer;
+
+var flyingSaucers;
     
 function setup()
 {
-    createCanvas(800,600);
+    createCanvas(1200,600);
     noStroke();
-    flyingSaucer = new FlyingSaucer(400,100);
+    
+    flyingSaucers = [];
+    for(var i = 0; i < 5; i++)
+        {
+            flyingSaucers.push(new FlyingSaucer(100 + i * 250, 100 ));
+        }
 }
 
 function draw()
@@ -21,24 +27,32 @@ function draw()
     fill(0,50,0);
     rect(0,height - 100, width, 100);
     
-    if(flyingSaucer.beam_on)
+   
+    
+    for(var i = 0; i < flyingSaucers.length; i++)
         {
-            flyingSaucer.beam();
+             if(flyingSaucers[i].beam_on)
+             {
+                flyingSaucers[i].beam();
+             }
+            
+            flyingSaucers[i].hover;
+            flyingSaucers[i].draw();
+            
         }
     
-    flyingSaucer.draw();
    
 }
 
-function keyPressed()
-{
-    flyingSaucer.beam_on = true;
-}
-
-function keyReleased()
-{
-    flyingSaucer.beam_on = false;
-}
+//function keyPressed()
+//{
+//    flyingSaucer.beam_on = true;
+//}
+//
+//function keyReleased()
+//{
+//    flyingSaucer.beam_on = false;
+//}
 
  function FlyingSaucer(x,y) 
 {
@@ -46,7 +60,7 @@ function keyReleased()
     this.x = x;
     this.y = y;
     this.width = random(150,200);
-    this.height = 50;
+    this.height = random(35, 125);
     this.numLights = 20;
     this.brightnesses = [];
     this.beam_on = false;
@@ -54,7 +68,16 @@ function keyReleased()
     {
         this.x += random(-2,2);
         this.y += random(-2,2);
-    },
+        
+        if(this.beam_on == false && random() > 0.95)
+            {
+                this.beam_on = true;
+            }
+        else if (this.beam_on == true && random() > 0.5)
+            {
+                this.beam_on = false;
+            }
+    };
 
     this.draw = function()
     {
@@ -66,8 +89,6 @@ function keyReleased()
     fill(50);
     arc(this.x,this.y,this.width,this.height/2,0,PI);
     
-//    this.x+=random(-1,1);
-//    this.y+=random(-1,1);
     
     
     this.hover();
@@ -88,10 +109,11 @@ function keyReleased()
 
     this.beam = function()
     {
-        fill(255,255,100,150);
+        
 
-        if(random() > 0.5)
+        if(random() > 0.25)
             {
+                fill(255,255,100,150);
                 beginShape();
                 vertex(this.x - this.width * 0.25, this.y);
                 vertex(this.x + this.width * 0.25, this.y);
@@ -100,7 +122,7 @@ function keyReleased()
                 endShape(CLOSE);
             }
 
-    }
+    };
 
      for(var i = 0; i < this.numLights; i++)
     {
